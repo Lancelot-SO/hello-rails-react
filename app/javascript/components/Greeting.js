@@ -1,24 +1,32 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchGreetingData } from "../redux/actions/greeting-action";
 
 const Greeting = () => {
-  const greetings = useSelector((state) => {
-    return state.greetingSlice.greetings;
-  });
-
-  const greeting = greetings[(Math.random() * greetings.length) | 0];
+  const greetings = useSelector((state) => state.greetingSlice.greetings);
 
   const dispatch = useDispatch();
 
-  const fetchGreeting = () => {
+  useEffect(() => {
     dispatch(fetchGreetingData());
+  }, [dispatch]);
+
+  const getRandomGreeting = () => {
+    if (greetings.length === 0) {
+      return null;
+    }
+    const randomIndex = Math.floor(Math.random() * greetings.length);
+    return greetings[randomIndex];
   };
+
+  const greeting = getRandomGreeting();
 
   return (
     <div>
-      <h1>{greeting}</h1>
-      <button onClick={fetchGreeting}>Get a Greeting</button>
+      {greeting && <h1>{greeting}</h1>}
+      <button onClick={() => dispatch(fetchGreetingData())}>
+        Get a Greeting
+      </button>
     </div>
   );
 };
