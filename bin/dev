@@ -1,8 +1,14 @@
-#!/usr/bin/env sh
+#!/bin/bash
 
 if ! gem list foreman -i --silent; then
   echo "Installing foreman..."
   gem install foreman
 fi
 
-exec foreman start -f Procfile.dev "$@"
+set -a
+source "$(dirname "$0")/.env"
+set +a
+
+cd "$(dirname "$0")/.." # Go to the root folder of your Rails application
+
+bundle exec foreman start -f Procfile.dev "$@"

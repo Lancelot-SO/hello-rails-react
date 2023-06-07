@@ -1,34 +1,21 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchGreetingData } from "../redux/actions/greeting-action";
+import React, {useEffect} from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchGreetings } from '../redux/Greeting/GreetingSlice';
 
-const Greeting = () => {
-  const greetings = useSelector((state) => state.greetingSlice.greetings);
-
+function Greeting() {
+  const greeting = useSelector(state => state.greeting.greetingstore) || [];
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(fetchGreetingData());
+   useEffect(() => {
+    dispatch(fetchGreetings());
   }, [dispatch]);
-
-  const getRandomGreeting = () => {
-    if (greetings.length === 0) {
-      return null;
-    }
-    const randomIndex = Math.floor(Math.random() * greetings.length);
-    return greetings[randomIndex];
-  };
-
-  const greeting = getRandomGreeting();
 
   return (
     <div>
-      {greeting && <h1>{greeting}</h1>}
-      <button onClick={() => dispatch(fetchGreetingData())}>
-        Get a Greeting
-      </button>
+      {greeting.length > 0 && (
+        <h1>{greeting[0].message}</h1>
+      )}
     </div>
   );
-};
+}
 
 export default Greeting;

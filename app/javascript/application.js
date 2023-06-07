@@ -1,13 +1,13 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import { BrowserRouter } from "react-router-dom";
-import App from "./components/App";
+// Entry point for the build script in your package.json
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import store from './redux/store';
+import App from './App';
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
+const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-  </React.StrictMode>
+  <Provider store={store}>
+    <App />
+  </Provider>,
 );
