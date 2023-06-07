@@ -7,11 +7,11 @@ ruby '3.2.2'
 gem 'rails', '~> 7.0.5'
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
-gem 'rubocop', '>= 1.0', '< 2.0'
-gem 'sprockets-rails'
+gem 'dotenv-rails', groups: %i[development test]
 gem 'foreman'
 gem 'rack-cors', require: 'rack/cors'
-gem 'dotenv-rails', groups: %i[development test]
+gem 'rubocop', '>= 1.0', '< 2.0'
+gem 'sprockets-rails'
 
 
 # Use postgresql as the database for Active Record
@@ -73,8 +73,7 @@ end
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem 'capybara'
+  gem 'rails-controller-testing'
   gem 'selenium-webdriver'
   gem 'webdrivers'
-  gem 'rails-controller-testing'
-
 end
